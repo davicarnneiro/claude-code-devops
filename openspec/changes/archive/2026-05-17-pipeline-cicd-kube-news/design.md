@@ -46,7 +46,7 @@ Action oficial Azure que em um único step executa: apply dos manifests (`k8s/`)
   with:
     namespace: kube-news
     manifests: k8s/
-    images: fabricioveronez/evento-kube-news:${{ inputs.image-tag }}
+    images: davicarneiro/evento-kube-news:${{ inputs.image-tag }}
 ```
 
 Alternativa descartada: scripts manuais `kubectl apply` + `kubectl set image` + `kubectl rollout status` — válido didaticamente, mas exige manutenção manual e não adiciona rastreabilidade no cluster.
@@ -60,7 +60,7 @@ Impede que dois deploys rodem simultaneamente, evitando race condition de `rollo
 - **Vazamento do kubeconfig** → Mitigação: gerar kubeconfig de ServiceAccount restrito ao namespace `kube-news` (RBAC limitado), não copiar kubeconfig admin do `doctl`.
 - **Rate limit Docker Hub no cluster** → Mitigação: documentado como ponto de aula; se ocorrer, configurar `imagePullSecret` no namespace.
 - **PR de fork disparando CD** → Mitigação: invocação do CD condicionada explicitamente a `github.event_name == 'push' && github.ref == 'refs/heads/main'`.
-- **`azure/k8s-deploy` substituindo imagem errada** → Mitigação: o parâmetro `images:` faz match pelo nome da imagem nos manifests — o Deployment em `k8s/` deve referenciar `fabricioveronez/evento-kube-news` para que a substituição funcione.
+- **`azure/k8s-deploy` substituindo imagem errada** → Mitigação: o parâmetro `images:` faz match pelo nome da imagem nos manifests — o Deployment em `k8s/` deve referenciar `davicarneiro/evento-kube-news` para que a substituição funcione.
 - **Schema migration implícita do Sequelize** → Risco herdado da aplicação (`sequelize.sync({ alter: true })`); a pipeline não causa mas precipita. Endereçar no escopo da app.
 
 ## Migration Plan
@@ -72,7 +72,7 @@ Impede que dois deploys rodem simultaneamente, evitando race condition de `rollo
 5. Fazer `git push main` e verificar execução no Actions
 6. Critério de sucesso: workflow verde, `rollout status` OK em <180s, pods `Running`, `curl` no LoadBalancer retorna 200
 
-**Rollback:** acionar `cd.yml` via `workflow_dispatch` passando o `run_number` anterior como `image-tag`, ou manualmente: `kubectl -n kube-news set image deploy/kube-news kube-news=fabricioveronez/evento-kube-news:<run_number_anterior>`
+**Rollback:** acionar `cd.yml` via `workflow_dispatch` passando o `run_number` anterior como `image-tag`, ou manualmente: `kubectl -n kube-news set image deploy/kube-news kube-news=davicarneiro/evento-kube-news:<run_number_anterior>`
 
 ## Open Questions
 

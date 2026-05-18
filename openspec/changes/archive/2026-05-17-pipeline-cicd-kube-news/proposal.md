@@ -24,7 +24,7 @@ O processo de deploy do kube-news é inteiramente manual — `docker build`, `do
 ## Impact
 
 - **Repo:** dois arquivos novos em `.github/workflows/`. Nenhum arquivo existente é modificado
-- **Docker Hub** (`fabricioveronez/evento-kube-news`): passa a receber pushes automáticos com tags numéricas crescentes
+- **Docker Hub** (`davicarneiro/evento-kube-news`): passa a receber pushes automáticos com tags numéricas crescentes
 - **Cluster DOKS, namespace `kube-news`:** passa a receber `apply` + `set image` + `rollout status` automáticos via GitHub Actions
 - **Secrets do repositório:** `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN` e `KUBE_CONFIG` precisam ser configurados em `Settings → Secrets and variables → Actions`
 - **Fluxo do desenvolvedor:** reduz de ~1h de trabalho manual para um simples `git push main`

@@ -20,7 +20,7 @@
 
 ## 4. Aplicação
 
-- [x] 4.1 Criar o `Deployment` da aplicação com imagem `fabricioveronez/imersao-kube-news:v1`, `replicas: 2` e env via `secretKeyRef`
+- [x] 4.1 Criar o `Deployment` da aplicação com imagem `davicarneiro/imersao-kube-news:v1`, `replicas: 2` e env via `secretKeyRef`
 - [x] 4.2 Adicionar `livenessProbe` no Deployment da app com `httpGet` em `/health` porta `8080`
 - [x] 4.3 Adicionar `readinessProbe` no Deployment da app com `httpGet` em `/ready` porta `8080`
 - [x] 4.4 Criar o `Service` da aplicação como `LoadBalancer` expondo porta `80` com `targetPort: 8080`
@@ -34,8 +34,8 @@
 ## 6. Teste e validação com kind
 
 - [x] 6.1 Criar cluster Kubernetes local com `kind create cluster --name kube-news`
-- [x] 6.2 Fazer o build da imagem Docker com `docker build -t fabricioveronez/imersao-kube-news:v1 .`
-- [x] 6.3 Fazer o push da imagem para o Docker Hub com `docker push fabricioveronez/imersao-kube-news:v1`
+- [x] 6.2 Fazer o build da imagem Docker com `docker build -t davicarneiro/imersao-kube-news:v1 .`
+- [x] 6.3 Fazer o push da imagem para o Docker Hub com `docker push davicarneiro/imersao-kube-news:v1`
 - [x] 6.4 Aplicar os manifestos no cluster com `kubectl apply -f k8s/kube-news.yml`
 - [x] 6.5 Aguardar os pods ficarem prontos com `kubectl wait --namespace kube-news --for=condition=Ready pod --all --timeout=120s`
 - [x] 6.6 Verificar que os 2 pods da aplicação e o pod do banco estão em estado `Running` com `kubectl get pods -n kube-news`

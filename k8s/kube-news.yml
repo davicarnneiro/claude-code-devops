@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: kube-news
-          image: fabricioveronez/evento-kube-news:latest
+          image: davicarneiro/evento-kube-news:latest
           env:
             - name: DB_DATABASE
               valueFrom:

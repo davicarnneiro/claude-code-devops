@@ -23,11 +23,11 @@ The system SHALL use `azure/k8s-deploy@v5` to apply all manifests in `k8s/` and 
 
 #### Scenario: Manifests applied and image substituted
 - **WHEN** the deploy step runs
-- **THEN** `azure/k8s-deploy@v5` applies all resources in `k8s/`, substitutes the image `fabricioveronez/evento-kube-news` with the tag from `inputs.image-tag`, and waits for the rollout to complete
+- **THEN** `azure/k8s-deploy@v5` applies all resources in `k8s/`, substitutes the image `davicarneiro/evento-kube-news` with the tag from `inputs.image-tag`, and waits for the rollout to complete
 
 #### Scenario: Image substitution matches by image name
 - **WHEN** `azure/k8s-deploy` processes the `images:` parameter
-- **THEN** it matches the image name `fabricioveronez/evento-kube-news` in the Deployment manifest and replaces its tag with the provided `image-tag`
+- **THEN** it matches the image name `davicarneiro/evento-kube-news` in the Deployment manifest and replaces its tag with the provided `image-tag`
 
 #### Scenario: Failed rollout fails the deploy job
 - **WHEN** pods do not reach Running state within the action's timeout

@@ -26,5 +26,5 @@ O kube-news roda hoje apenas localmente via Docker Compose, o que não permite d
 - **Infraestrutura cloud**: criação de recursos na DigitalOcean para o ambiente `dev` (DOKS, VPC, Load Balancer) via Terraform — custo estimado ~US$ 48/mês se ligado 24/7
 - **Novo diretório `terraform/`**: código Terraform para provisionar o ambiente `dev` (cluster DOKS e VPC)
 - **`k8s/kube-news.yml`**: remoção do PersistentVolumeClaim e do volumeMount do Postgres
-- **Docker Hub**: sem alterações no registry (`fabricioveronez/imersao-kube-news`)
+- **Docker Hub**: sem alterações no registry (`davicarneiro/imersao-kube-news`)
 - **Sem alterações no código-fonte** da aplicação (`src/`)

@@ -23,7 +23,7 @@ Nenhum pod está `Running/Ready`. Ambos em `CrashLoopBackOff`.
 
 ```
 NAME                        READY   UP-TO-DATE   AVAILABLE   IMAGES
-deployment.apps/kube-news   0/1     1            0           fabricioveronez/imersao-kube-news:v1
+deployment.apps/kube-news   0/1     1            0           davicarneiro/imersao-kube-news:v1
 deployment.apps/postgres    0/1     1            0           postgres:15-alpine
 
 NAME               TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)
@@ -49,7 +49,7 @@ O Secret `postgres-secret` existe e contém as 3 chaves esperadas (`db-database`
 
 ```
 Warning  Failed   89s (x2 over 90s)   kubelet  spec.containers{kube-news}: Error: secret "postgres-secret" not found
-Normal   Pulled   36s (x6 over 90s)   kubelet  Container image "fabricioveronez/imersao-kube-news:v1" already present
+Normal   Pulled   36s (x6 over 90s)   kubelet  Container image "davicarneiro/imersao-kube-news:v1" already present
 Normal   Created  36s (x4 over 75s)   kubelet  Container created
 Normal   Started  36s (x4 over 75s)   kubelet  Container started
 Warning  BackOff  30s (x10 over 71s)  kubelet  Back-off restarting failed container kube-news
@@ -191,7 +191,7 @@ block storage ext4 cria lost+found
 
 ### Ação 1 — Corrigir o manifesto `postgres-deployment.yml` adicionando `subPath`
 
-**Arquivo:** `/home/fabricioveronez/imersao/kube-news/k8s-bo/postgres-deployment.yml`
+**Arquivo:** `/home/davicarneiro/imersao/kube-news/k8s-bo/postgres-deployment.yml`
 
 Adicionar `subPath: pgdata` ao `volumeMount` do container postgres:
 
@@ -207,7 +207,7 @@ Isso faz o postgres usar `/var/lib/postgresql/data/pgdata` (subdiretório dentro
 ### Ação 2 — Re-aplicar o Deployment do postgres
 
 ```bash
-kubectl apply -f /home/fabricioveronez/imersao/kube-news/k8s-bo/postgres-deployment.yml
+kubectl apply -f /home/davicarneiro/imersao/kube-news/k8s-bo/postgres-deployment.yml
 ```
 
 Aguardar o pod entrar em `Running/Ready`:

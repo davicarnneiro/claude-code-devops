@@ -29,4 +29,4 @@ jobs:
         with:
           namespace: kube-news
           manifests: k8s/
-          images: fabricioveronez/evento-kube-news:${{ inputs.image-tag }}
+          images: davicarneiro/evento-kube-news:${{ inputs.image-tag }}

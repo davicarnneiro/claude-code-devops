@@ -19,7 +19,7 @@ npm start
 
 **Build Docker image:**
 ```bash
-docker build -t fabricioveronez/imersao-kube-news:v1 .
+docker build -t davicarneiro/imersao-kube-news:v1 .
 ```
 
 ## Environment Variables

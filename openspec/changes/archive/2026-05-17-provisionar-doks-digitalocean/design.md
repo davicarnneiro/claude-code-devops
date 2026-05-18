@@ -8,7 +8,7 @@ O manifest `k8s/kube-news.yml` já existe com todos os recursos Kubernetes neces
 - Provedor: DigitalOcean (premissa didática, não negociável)
 - Região: NYC1
 - Node type: `s-2vcpu-2gb` × 2 nodes (pool fixo)
-- Registry: Docker Hub externo (`fabricioveronez/imersao-kube-news`)
+- Registry: Docker Hub externo (`davicarneiro/imersao-kube-news`)
 - Banco: Postgres dentro do cluster, sem volume persistente (decisão didática)
 - Monitoramento DO e backup: desabilitados
 - Ferramenta de IaC: Terraform

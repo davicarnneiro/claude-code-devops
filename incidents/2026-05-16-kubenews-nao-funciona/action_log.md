@@ -15,7 +15,7 @@ postgres-8647476c7b-tb5gh    1/1     Running   0          9m18s   10.109.0.181  
 ### Iteração 1 — 2026-05-16T22:00:00Z
 **Hipótese:** O volume block storage (ext4) cria `lost+found` na raiz, impedindo o `initdb` do PostgreSQL de inicializar o diretório `/var/lib/postgresql/data` (que não pode estar não-vazio). Isso derruba o postgres em CrashLoopBackOff, e o kube-news falha em cascata com ECONNREFUSED.
 
-**Ação:** Editado `/home/fabricioveronez/imersao/kube-news/k8s-bo/postgres-deployment.yml` adicionando `subPath: pgdata` ao volumeMount do container postgres, fazendo o initdb usar o subdiretório `/var/lib/postgresql/data/pgdata` (livre de `lost+found`). Manifesto aplicado via `kubectl apply`.
+**Ação:** Editado `/home/davicarneiro/imersao/kube-news/k8s-bo/postgres-deployment.yml` adicionando `subPath: pgdata` ao volumeMount do container postgres, fazendo o initdb usar o subdiretório `/var/lib/postgresql/data/pgdata` (livre de `lost+found`). Manifesto aplicado via `kubectl apply`.
 
 **Resultado:** Kubernetes iniciou um rolling update criando novo pod `postgres-8647476c7b-tb5gh` no node `pool-g1669fym6-33r5dp`. Porém o pod ficou preso em `ContainerCreating` com erro `Multi-Attach error` — o PVC (RWO/block storage) ainda estava anexado ao pod antigo `postgres-85477b5999-scg4b` no node `pool-g1669fym6-33r5ds`.
 

@@ -31,7 +31,7 @@ Provisionar na DigitalOcean um cluster Kubernetes gerenciado (DOKS) com os compo
 ```mermaid
 flowchart LR
     User([Aluno/Usuário]):::external
-    DockerHub[("Docker Hub<br/>fabricioveronez/<br/>evento-kube-news")]:::external
+    DockerHub[("Docker Hub<br/>davicarneiro/<br/>evento-kube-news")]:::external
 
     subgraph DO["DigitalOcean — Região NYC1"]
         direction TB
@@ -82,7 +82,7 @@ flowchart LR
 | Região | NYC1 |
 | Networking | VPC dedicada para o projeto |
 | Exposição externa | DigitalOcean Load Balancer (provisionado pelo Service `type: LoadBalancer` da aplicação) |
-| Container Registry | Docker Hub externo (`fabricioveronez/evento-kube-news`) |
+| Container Registry | Docker Hub externo (`davicarneiro/evento-kube-news`) |
 | Monitoramento DO | Desabilitado |
 | Backup/Snapshot | Desabilitado |
 

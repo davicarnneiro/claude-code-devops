@@ -10,7 +10,7 @@
 
 - [x] 2.1 Criar `.github/workflows/ci.yml` com gatilhos `push` (todas as branches) e `pull_request`
 - [x] 2.2 Adicionar job `validate`: `actions/checkout` → `actions/setup-node@v4` com cache npm → `npm ci` em `src/`
-- [x] 2.3 Adicionar job `build-and-push` (`needs: validate`, condicional a `push` na `main`): checkout → `docker/setup-buildx-action` → `docker/login-action` (Docker Hub) → `docker/build-push-action` com contexto `./src`, tag `fabricioveronez/evento-kube-news:${{ github.run_number }}` e cache `type=gha`
+- [x] 2.3 Adicionar job `build-and-push` (`needs: validate`, condicional a `push` na `main`): checkout → `docker/setup-buildx-action` → `docker/login-action` (Docker Hub) → `docker/build-push-action` com contexto `./src`, tag `davicarneiro/evento-kube-news:${{ github.run_number }}` e cache `type=gha`
 - [x] 2.4 Expor output `image-tag: ${{ github.run_number }}` no job `build-and-push`
 - [x] 2.5 Adicionar job `call-cd` (`needs: build-and-push`, condicional a `push` na `main`): `uses: ./.github/workflows/cd.yml` com `secrets: inherit` e `with: image-tag: ${{ needs.build-and-push.outputs.image-tag }}`
 
@@ -19,12 +19,12 @@
 - [x] 3.1 Criar `.github/workflows/cd.yml` com gatilho `workflow_call` (input `image-tag` obrigatório) e `workflow_dispatch` (input `image-tag` manual)
 - [x] 3.2 Adicionar job `deploy` com `environment: production` e `concurrency: deploy-main`
 - [x] 3.3 Adicionar step `azure/k8s-set-context@v4` com `method: kubeconfig` e secret `KUBE_CONFIG`
-- [x] 3.4 Adicionar step `azure/k8s-deploy@v5` com `namespace: kube-news`, `manifests: k8s/` e `images: fabricioveronez/evento-kube-news:${{ inputs.image-tag }}`
+- [x] 3.4 Adicionar step `azure/k8s-deploy@v5` com `namespace: kube-news`, `manifests: k8s/` e `images: davicarneiro/evento-kube-news:${{ inputs.image-tag }}`
 
 ## 4. Validação
 
 - [ ] 4.1 Fazer `git push main` e verificar que workflow `CI` executa e fica verde
-- [ ] 4.2 Verificar que a imagem `fabricioveronez/evento-kube-news:<run_number>` aparece no Docker Hub
+- [ ] 4.2 Verificar que a imagem `davicarneiro/evento-kube-news:<run_number>` aparece no Docker Hub
 - [ ] 4.3 Verificar que o workflow `CD` executou após o CI com a tag correta
 - [ ] 4.4 Verificar `kubectl -n kube-news rollout status deploy/kube-news` retorna sucesso
 - [ ] 4.5 Verificar `kubectl -n kube-news get pods` mostra pods `Running` com a imagem na tag esperada

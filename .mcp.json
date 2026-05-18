@@ -7,7 +7,7 @@
                 "-i",
                 "--rm",
                 "-v",
-                "/home/fabricioveronez/.kube/config:/home/appuser/.kube/config:ro",
+                "/home/davi/.kube/config:/home/appuser/.kube/config:ro",
                 "mcp/kubernetes"
             ]
         },

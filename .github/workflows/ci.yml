@@ -41,7 +41,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: fabricioveronez/evento-kube-news:${{ github.run_number }}
+          tags: davicarneiro/evento-kube-news:${{ github.run_number }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

@@ -144,7 +144,7 @@ volumeMounts:
 O `subPath` faz o postgres usar o subdiretório `/var/lib/postgresql/data/pgdata` dentro do volume montado. Esse subdiretório é criado pelo Kubernetes e está vazio, sem `lost+found`, permitindo que o `initdb` inicialize com sucesso.
 
 ```bash
-kubectl apply -f /home/fabricioveronez/imersao/kube-news/k8s-bo/postgres-deployment.yml
+kubectl apply -f /home/davicarneiro/imersao/kube-news/k8s-bo/postgres-deployment.yml
 ```
 
 ### Passo 2 — Resolução do deadlock de PVC RWO
@@ -266,7 +266,7 @@ kubectl get deployment postgres -n default -o yaml | grep -A5 volumeMounts
 # PASSO 1: Corrigir o manifesto (se subPath estiver ausente)
 # Editar k8s-bo/postgres-deployment.yml e adicionar subPath: pgdata
 # Depois aplicar:
-kubectl apply -f /home/fabricioveronez/imersao/kube-news/k8s-bo/postgres-deployment.yml
+kubectl apply -f /home/davicarneiro/imersao/kube-news/k8s-bo/postgres-deployment.yml
 
 # PASSO 2: Se o rolling update entrar em deadlock (Multi-Attach error)
 # Identificar o nome do ReplicaSet antigo e do novo

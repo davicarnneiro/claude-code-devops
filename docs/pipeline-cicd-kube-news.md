@@ -13,7 +13,7 @@ created_at: 2026-05-15
 O `kube-news` é uma aplicação Node.js/Express usada como artefato didático para aulas de containers, Kubernetes e CI/CD. Até este momento, o processo de deploy é **inteiramente manual** e executado da máquina do desenvolvedor:
 
 1. `docker build` local
-2. `docker push` para o Docker Hub (`fabricioveronez/evento-kube-news`)
+2. `docker push` para o Docker Hub (`davicarneiro/evento-kube-news`)
 3. `kubectl apply` contra o cluster
 
 O gatilho desta definição é o aumento da **frequência de deploys** — hoje em torno de 2 por dia — que tornou o processo manual um gargalo operacional. A demanda agora é por automatização que garanta **velocidade e qualidade** no deploy, e que sirva também como artefato didático em aulas de CI/CD.
@@ -55,7 +55,7 @@ flowchart LR
 - Job `build-and-push` (`needs: validate`, apenas em `push` na `main`):
   - `actions/checkout` → `docker/setup-buildx-action` → `docker/login-action` (Docker Hub) → `docker/build-push-action`
   - Contexto de build: `./src`
-  - Imagem: `fabricioveronez/evento-kube-news:${{ github.run_number }}`
+  - Imagem: `davicarneiro/evento-kube-news:${{ github.run_number }}`
   - Cache: `type=gha`
   - **Output:** `image-tag: ${{ github.run_number }}`
 - Job `call-cd` (`needs: build-and-push`, apenas em `push` na `main`): `uses: ./.github/workflows/cd.yml` com `secrets: inherit` e `with: image-tag: ${{ needs.build-and-push.outputs.image-tag }}`
@@ -67,7 +67,7 @@ flowchart LR
   - `concurrency: deploy-main` (impede deploys simultâneos)
   - `azure/k8s-set-context@v4` recebendo kubeconfig do secret `KUBE_CONFIG`
   - `kubectl apply -f k8s/`
-  - `kubectl -n kube-news set image deploy/kube-news kube-news=fabricioveronez/evento-kube-news:${{ inputs.image-tag }}`
+  - `kubectl -n kube-news set image deploy/kube-news kube-news=davicarneiro/evento-kube-news:${{ inputs.image-tag }}`
   - `kubectl -n kube-news rollout status deploy/kube-news --timeout=180s`
 
 **Tag da imagem:** `${{ github.run_number }}` — número monotônico incremental do workflow, ótimo didaticamente (a 47ª execução gera `:47`). Gerada no CI e passada ao CD via output do `workflow_call`.
@@ -75,7 +75,7 @@ flowchart LR
 **Mapa de impacto:**
 
 - **Repo:** dois arquivos novos em `.github/workflows/`. Nenhum arquivo existente é modificado pela pipeline.
-- **Docker Hub** (`fabricioveronez/evento-kube-news`): passa a receber pushes automatizados com tags numéricas crescentes (`:1`, `:2`, `:3`, ...).
+- **Docker Hub** (`davicarneiro/evento-kube-news`): passa a receber pushes automatizados com tags numéricas crescentes (`:1`, `:2`, `:3`, ...).
 - **Cluster DOKS, namespace `kube-news`:** passa a receber `apply` + `set image` + `rollout status` automatizados a partir do GitHub Actions.
 - **Fluxo do desenvolvedor:** deixa de rodar `docker build/push/kubectl apply` localmente; passa a fazer apenas `git push` na main.
 

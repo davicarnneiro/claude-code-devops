@@ -16,7 +16,7 @@ The system SHALL run `npm ci` in `src/` on every `push` to any branch and every 
 - **THEN** npm dependencies are restored from cache, reducing job duration
 
 ### Requirement: Build and push Docker image only on push to main
-The system SHALL build the Docker image from `./src` context and push it to Docker Hub as `fabricioveronez/evento-kube-news:<run_number>` only when a `push` event targets the `main` branch, and only after the `validate` job succeeds.
+The system SHALL build the Docker image from `./src` context and push it to Docker Hub as `davicarneiro/evento-kube-news:<run_number>` only when a `push` event targets the `main` branch, and only after the `validate` job succeeds.
 
 #### Scenario: Push to main after validation triggers build
 - **WHEN** a push to `main` occurs and the `validate` job succeeds
